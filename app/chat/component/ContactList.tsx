@@ -9,8 +9,6 @@ interface Props {
 
 const ContactList = ({ clients }: Props) => {
 
-
-
     return (
         <ScrollArea className="h-[calc(100vh-100px)]">
             <div className="space-y-4 p-4">

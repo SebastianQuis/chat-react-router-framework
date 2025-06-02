@@ -9,6 +9,7 @@ export default [
             route("login", "routes/auth/login-page.tsx"),
             route("register", "routes/auth/register-page.tsx"),
             route("testing", "routes/auth/testing-page.tsx"),
+            route("testing-arg/:id/:name", "routes/auth/testing-args-page.tsx"),
         ]),
     ]),
 
@@ -17,7 +18,6 @@ export default [
         layout("layouts/chat-layout.tsx", [
             index("routes/chat/no-chat-selected.tsx"),
             route("client/:id", "routes/chat/chat-page.tsx"),
-            
         ]),
     ]),
 

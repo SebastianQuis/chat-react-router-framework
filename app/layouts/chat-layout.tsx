@@ -6,6 +6,7 @@ import { Button } from '~/components/ui/button'
 import { getClients } from '~/data/fake-data'
 import type { Route } from './+types/chat-layout'
 
+// esto es del lado del servidor
 export async function loader() {
     const clients = await getClients();
     // console.log(clients);
@@ -34,7 +35,7 @@ const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
             </div>
 
             {/* Main Content */}
-            <div className="flex">
+            <div className="flex w-full">
                 <div className="w-full flex flex-col">
                     {/* Header */}
                     <header className="h-14 border-b px-4 flex items-center justify-between">
