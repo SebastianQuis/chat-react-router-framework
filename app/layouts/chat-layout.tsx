@@ -1,15 +1,23 @@
 import { X } from 'lucide-react'
-import { Outlet } from 'react-router'
+import { Form, Outlet, redirect } from 'react-router'
 import ContactInformation from '~/chat/component/contact-information/ContactInformation'
 import ContactList from '~/chat/component/ContactList'
 import { Button } from '~/components/ui/button'
 import { getClients } from '~/data/fake-data'
 import type { Route } from './+types/chat-layout'
+import { getSession } from '~/sessions.server'
 
 // esto es del lado del servidor
-export async function loader() {
+export async function loader({
+    request,
+}: Route.LoaderArgs) {
+    // validando si no hay un sesion activa
+    const session = await getSession(request.headers.get("Cookie"));
+    if (!session.has("token")) {
+        return redirect("/auth/login");
+    }
+
     const clients = await getClients();
-    // console.log(clients);
     return { clients };
 }
 
@@ -30,7 +38,9 @@ const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
                 <ContactList clients={clients} />
 
                 <div className='w-full flex text-center'>
-                    <span className='bg-red-300 text-red-600 w-full mx-2 py-2 rounded-md hover:bg-red-200 cursor-pointer'>Cerrar sesion</span>
+                    <Form method="POST" action="/auth/logout" className='w-full mx-2'>
+                        <button className='w-full py-2 rounded-md bg-red-300 cursor-pointer text-red-600 hover:bg-red-200'>Logout</button>
+                    </Form>
                 </div>
             </div>
 
