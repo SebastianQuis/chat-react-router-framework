@@ -1,6 +1,5 @@
 import { Form, Link } from "react-router";
 import type { Route } from "./+types/testing-args-page";
-import { getClients } from "~/data/fake-data";
 
 // la accion que se ejecuta en el servidor
 export async function loader({ params }: Route.LoaderArgs) {
@@ -43,14 +42,13 @@ export default function TestingArgsPage({
     return (
         <div>
             <h1 className="text-3xl text-indigo-500 font-semibold">Testing Arg page</h1>
+            <h1 className="text-2xl">ID: {id}</h1>
+            <h1 className="text-2xl">Name: {name}</h1>
             <p>Loader Data: {JSON.stringify(loaderData)}</p>
             <p>Action Data: {JSON.stringify(actionData)}</p>
             <p>Route Parameters: {JSON.stringify(params)}</p>
             <p>Matched Routes: {JSON.stringify(matches)}</p>
             <Link to={"/auth/testing"} className="underline text-blue-500 mt-2">Testing page</Link>
-
-            
-
         </div>
     )
 }

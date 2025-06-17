@@ -1,7 +1,7 @@
 
 const ContactInformationSkeleton = () => {
     return (
-        <div className="p-4">
+        <div className="w-80 border-1 px-2">
             <div className="flex flex-col items-center pb-6 border-b">
                 <div className="h-20 w-20 rounded-full bg-muted animate-pulse mb-3" />
                 <div className="h-6 w-32 bg-muted-foreground/20 rounded animate-pulse mb-2" />

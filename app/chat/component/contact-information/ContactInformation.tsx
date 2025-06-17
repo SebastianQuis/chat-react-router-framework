@@ -1,24 +1,32 @@
-import React from 'react'
-import ContactInformationCard from './ContactInformationCard'
-import ContactInformationSkeleton from './ContactInformationSkeleton'
+
+import type { Client } from '~/chat/interface/chat.interface';
 import NoContactSelected from './NoContactSelected'
-import { useParams } from 'react-router'
+import { useLoaderData, useNavigation, useParams } from 'react-router'
+import ContactInformationCard from './ContactInformationCard';
+import ContactInformationSkeleton from './ContactInformationSkeleton';
 
 const ContactInformation = () => {
 
-    const params = useParams();
-    console.log(params.id);
-    
+    const { id } = useParams();
+    // clients y loaderData viene del componente padre ChatLayout
+    const { clients = [] } = useLoaderData();
+    const { state, formMethod } = useNavigation();
+
+    // previniendo la carga al mandar un nuevo mensaje
+    if (state === "loading" && formMethod !== "POST")
+        return (<ContactInformationSkeleton />)
+
+    if (!id || !clients.length) {
+        return <NoContactSelected />
+    }
+
+    const contact = clients.find((client: Client) => client.id === id);
+    if (!contact) {
+        return <NoContactSelected />
+    }
 
     return (
-
-        // contact sin information
-        <NoContactSelected/>
-
-        // contactskeleton
-        // <ContactInformationSkeleton />
-
-        // <ContactInformationCard />
+        <ContactInformationCard client={contact} />
     )
 }
 

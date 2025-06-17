@@ -17,8 +17,9 @@ const ContactList = ({ clients }: Props) => {
                     <div className="space-y-2">
                         {
                             clients.map((client) => (
-                                <NavLink key={client.id} to={`/chat/client/${client.id}`} className={({ isActive }) =>
-                                    isActive ? "w-full flex items-center bg-gray-300 rounded-md px-2 py-1" : "px-2 py-1 w-full flex items-center"
+                                <NavLink key={client.id} to={`/chat/client/${client.id}`} className={({ isActive, isPending }) =>
+                                    isPending ? "w-full flex items-center bg-gray-300 rounded-md px-2 py-1" :
+                                        isActive ? "w-full flex items-center bg-gray-200 rounded-md px-2 py-1" : "px-2 py-1 w-full flex items-center"
                                 }>
                                     <div className="h-6 w-6 rounded-full bg-blue-500 mr-2 flex-shrink-0 flex items-center justify-center text-white text-xs">
                                         {client.name[0]}

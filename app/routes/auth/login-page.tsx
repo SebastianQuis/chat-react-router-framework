@@ -6,6 +6,7 @@ import { Input } from "~/components/ui/input"
 import type { Route } from "./+types/login-page"
 import { commitSession, getSession } from "~/sessions.server"
 import { useEffect } from "react"
+import { loginUser } from "~/data/fake-data"
 
 
 export async function loader({
@@ -61,9 +62,11 @@ export async function action({
     );
   }
 
+  const { name, token } = await loginUser();
+
   // guardando los datos en la session
-  session.set("userId", "U1-12345");
-  session.set("token", "token-1234567890");
+  session.set("name", name);
+  session.set("token", token);
 
   // Login succeeded, send them to the home page.
   return redirect("/chat", {

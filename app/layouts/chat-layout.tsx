@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import { Form, Outlet, redirect } from 'react-router'
+import { Form, Link, Outlet, redirect } from 'react-router'
 import ContactInformation from '~/chat/component/contact-information/ContactInformation'
 import ContactList from '~/chat/component/ContactList'
 import { Button } from '~/components/ui/button'
@@ -17,12 +17,15 @@ export async function loader({
         return redirect("/auth/login");
     }
 
+    // console.log("session en chat-layout", session.get("userId"));
+    const userName = session.get("name");
+
     const clients = await getClients();
-    return { clients };
+    return { clients, userName };
 }
 
 const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
-    const { clients } = loaderData;
+    const { clients, userName } = loaderData;
 
     return (
         <div className="flex h-screen bg-background">
@@ -31,7 +34,7 @@ const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
                 <div className="p-4 border-b">
                     <div className="flex items-center gap-2">
                         <div className="h-6 w-6 rounded-full bg-primary" />
-                        <span className="font-semibold">NexTalk</span>
+                        <Link to={"/chat"} className="font-semibold">{userName}</Link>
                     </div>
                 </div>
 
@@ -46,10 +49,10 @@ const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
 
             {/* Main Content */}
             <div className="flex w-full">
-                <div className="w-full flex flex-col">
+                <div className="w-full flex flex-col mb-2">
                     {/* Header */}
-                    <header className="h-14 border-b px-4 flex items-center justify-between">
-                        <div></div> {/* Empty div to maintain spacing */}
+                    {/* <header className="h-14 border-b px-4 flex items-center justify-between">
+                        <div></div>
                         <div className="flex items-center gap-2">
                             <Button variant="ghost" size="sm">
                                 Save conversation
@@ -58,7 +61,7 @@ const ChatLayout = ({ loaderData }: Route.ComponentProps) => {
                                 <X className="h-4 w-4" />
                             </Button>
                         </div>
-                    </header>
+                    </header> */}
                     <Outlet />
                 </div>
 

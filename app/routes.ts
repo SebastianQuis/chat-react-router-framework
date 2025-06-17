@@ -25,4 +25,9 @@ export default [
     ]),
 
 
+    // product
+    route("product/:name", "routes/product.tsx"),
+
+
+
 ] satisfies RouteConfig;
