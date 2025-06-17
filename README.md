@@ -49,9 +49,11 @@ npm run build
 To build and run using Docker:
 
 ```bash
+# al mismo nivel del package.json my-app puede ser reemplazado por "support-chat"
 docker build -t my-app .
 
-# Run the container
+# Run the container 
+# my-app por "support-chat"
 docker run -p 3000:3000 my-app
 ```
 
